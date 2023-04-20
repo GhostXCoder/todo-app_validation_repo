@@ -16,13 +16,16 @@ export class Todo {
   Description: string;
 
   @Column()
-  Due_date: Date;
+  Due_Date: string;
 
   @Column()
   Priority: string;
   
   @Column()
   Status: string;
+
+  @Column()
+  Remarks: string;
 
   @Column()
   Assignee: string;

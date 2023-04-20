@@ -26,7 +26,7 @@ export class Todo1681368810709 implements MigrationInterface {
                   type: "varchar",
                 },
                 {
-                  name: "Due Date",
+                  name: "Due_Date",
                   type: "varchar",
                 },
                 {

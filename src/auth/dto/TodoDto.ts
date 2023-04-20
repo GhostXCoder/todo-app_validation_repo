@@ -21,10 +21,9 @@ export class TodoDto {
     readonly Description: string;
 
     @IsNotEmpty()
-    @IsDate()
     @Max(10)
     @Min(1)
-    readonly Due_date: Date;
+    readonly Due_date: string;
 
     @IsNotEmpty()
     @IsString()

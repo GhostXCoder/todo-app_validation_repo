@@ -11,7 +11,8 @@ import {
   ForbiddenException,
   NotFoundException,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  Query
 } from '@nestjs/common';
 import { Todo } from './entity/todo.entity';
 import { TodoDto } from '../auth/dto/TodoDto';
@@ -33,7 +34,29 @@ export class TodoController {
   ) {} 
   
     @Get()
-  async findAll( @Headers('Authorization') token: string): Promise<Todo[]> {  
+    //async findAll( @Headers('Authorization') @Query() params: EntityTodoDto, token: string): Promise<Todo[]> {  
+
+      async myHandler(@Headers('Authorization') @Query() params: EntityTodoDto, token: string): Promise<EntityTodoDto> {
+        const data: EntityTodoDto = {
+          userId: 0,
+          id: 0,
+          Task: '',
+          Description: '',
+          Due_Date: '',
+          Priority: '',
+          Remarks: '',
+          Status: '',
+          Notes: '',
+          Assignee: '',
+          Tags: '',
+          Checklist: '',
+          Time_estimation: '',
+          title: '',
+          completed: false
+        };
+       
+      
+   // async myGetHandler(@Query() params: GetParamsDto) {
     try {
       const user = await this.authService.verifyToken(token);
       console.log('user',user.username)
@@ -41,17 +64,18 @@ export class TodoController {
       // verification if username and password is registered.
       // const userId = user.authService.verifyToken;
       if (!userExist) throw new NotFoundException("User not found");
-      return await this.todoService.findAll(user.sub);
+      //return await this.todoService.findAll(user.sub);
 
     } catch(error) { 
       console.log (error)
       throw new NotFoundException(error.response?.message);   
     }
-     
+    return data;
   }
 
   @Get(':id')
-   async findOne(@Param('id') id: number, userId: number, @Headers('Authorization') token: string): Promise<Todo> {
+  //async update(@Param('id') id: number, @Body() todo: EntityTodoDto, @Headers('Authorization') token: string): Promise<void> {
+   async findOne(@Param('id') id: number, todo: EntityTodoDto, userId: number, @Headers('Authorization') token: string): Promise<Todo> {
     try {
 
       const user = await this.authService.verifyToken(token);
@@ -91,10 +115,10 @@ export class TodoController {
   @Post("save")
   //decrypt code. 
     async create(@Body() todo: EntityTodoDto, @Headers('Authorization') token: string): Promise<any> {
-    const user = await this.authService.verifyToken(token);
+   
+ 
+      const user = await this.authService.verifyToken(token); 
     
-    
-
  //to insert decrypted userId token.
     if(!user) {
       throw new ForbiddenException("user not found"); 
@@ -106,12 +130,13 @@ export class TodoController {
   }
   @Put(':id')
   async update(@Param('id') id: number, @Body() todo: EntityTodoDto, @Headers('Authorization') token: string): Promise<void> {
-  
+    if(!token){
+      throw new UnauthorizedException('message: Unauthorized user!');
+    }
     try {
       
       const user = await this.authService.verifyToken(token);
       console.log('user',user.username)
-
       const userExist = await this.authService.findUserByUsername(user.username)
       
       // verification if username and password is registered.
@@ -128,12 +153,11 @@ export class TodoController {
 
     } catch(error) { 
       throw new NotFoundException(error.response.message);   
-    }
-            
+    }            
 }
 
    @Delete(':id')
-  async delete(@Param('id') id: number, @Body() todo: EntityTodoDto, @Headers('Authorization') token: string): Promise<void> {
+  async delete(@Param('id') id: number, todo: EntityTodoDto, @Headers('Authorization') token: string): Promise<void> {
     try {
       
       const user = await this.authService.verifyToken(token);
