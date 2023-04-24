@@ -6,7 +6,7 @@ export class User {
     throw new Error('Method not implemented.');
   }
   @PrimaryGeneratedColumn()
-  id: number;
+   id: number;
 
   @Column({ unique: true })
   username: string;

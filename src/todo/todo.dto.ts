@@ -1,54 +1,53 @@
-import { IsBoolean, IsDate, IsNotEmpty, IsString, Length} from "class-validator";
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, Length} from "class-validator";
+
 //import { Length } from "class-validator/types/decorator/decorators";
 
 export class EntityTodoDto {
-@IsNotEmpty({message:"user need to fill out the field."})
+    @IsOptional()
+    userId: number;
 
-//@length(3, 20)
-@IsNotEmpty()
-    @Length(10)
-    @IsString()
+    @IsOptional()
     id: number;
 
     @IsNotEmpty()
-    @Length(10)
-    @IsString()
-    userId: number;
-
-    @IsNotEmpty()
-    @Length(10)
+    @Length(3)
     @IsString()
     Task: string;
 
     @IsNotEmpty()
-    @Length(10)
+    @Length(5)
     @IsString()
     Description: string;
 
     @IsNotEmpty()
-    @Length(10)
-    @IsDate()
-    Due_date: Date;
+    Due_Date: string;
 
     @IsNotEmpty()
-    @Length(10)
+    @Length(5)
     @IsString()
     Priority: string;
+
+    @IsNotEmpty()
+    @Length(5)
+    @IsString()
+    Remarks: string;
 
     @IsNotEmpty()
     @Length(10)
     @IsString()
     Status: string;
 
+    
+    @IsNotEmpty()
+    @Length(10)
+    @IsString()
+    Notes: string;
+
     @IsNotEmpty()
     @Length(10)
     @IsString()
     Assignee: string;
 
-    @IsNotEmpty()
-    @Length(10)
-    @IsString()
-    Notes: string;
    
     @IsNotEmpty()
     @Length(10)
@@ -71,12 +70,8 @@ export class EntityTodoDto {
     title: string;
 
     @IsNotEmpty()
-    @Length(10)
     @IsBoolean()
     completed: boolean;
 }
-
-
-
 
 

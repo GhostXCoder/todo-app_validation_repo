@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 //import { User } from './user.entity';
 import { Todo } from './entity/todo.entity';
 import { TodoDto } from '../auth/dto/TodoDto';
+import { EntityTodoDto } from './todo.dto';
 
 @Injectable()
 export class TodoService {
@@ -27,7 +28,7 @@ export class TodoService {
     return await this.todoRepository.findOne({ where: { id: id } });
   }
 
-  async create(todoDto: TodoDto): Promise<Todo> {
+  async create(todoDto: EntityTodoDto): Promise<Todo> {
     const todo = Object.assign(new Todo(), todoDto);
     // const todo = new Todo();
     // todo.title = todoDto.title;
