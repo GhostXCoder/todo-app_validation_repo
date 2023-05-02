@@ -1,16 +1,17 @@
-import { IsNotEmpty, IsString, Length} from "class-validator";
+import { IsNotEmpty, IsString, Length, Validate} from "class-validator";
+import { CustomUserValidation } from "../validator_constraint";
 
 
 //import { Length } from "class-validator/types/decorator/decorators";
 
 export class UserDto {
-    @IsNotEmpty({message:"The username should have a username and password"})
+    @IsNotEmpty({message:"Username and password is empty"})
     //@IsUnique ({message: 'Username already exists'})
     //@length(3, 20)
     
     @IsNotEmpty()
-    @Length(3, 5)
     @IsString()
+    @Validate(CustomUserValidation)
     username: string;
 
     @IsNotEmpty()

@@ -1,0 +1,21 @@
+import { Seeder, PkFactory, QueryRunner } from 'typeorm';
+import { Connection } from 'typeorm';
+import { User } from '../users/entity/user.entity';
+
+export default class CreateUsers implements Seeder {
+  public async run(factory: PkFactory, connection: Connection): Promise<void> {
+    await connection
+      .createQueryBuilder()
+      .insert()
+      .into(User)
+      .values([
+        { username: 'Lan', password: 'AL' },
+        { username: 'Kol', password: 'Ya' },
+        { username: 'Yan', password: 'xX1' }
+      ])
+      .execute();
+    }
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query("TRUNCATE TABLE fund_bank CASCADE");
+    }
+}
