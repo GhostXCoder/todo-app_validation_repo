@@ -8,18 +8,18 @@ export class CreateUserDto {
   @IsEmail()
   @Validate(CustomUserValidation)
 
-  email: string;
+  //email: string;
 
   @IsNotEmpty()
   @IsNumber()
   @Max(15)
-  @Min(1)
+  @Min(3)
   readonly username: string;
 
   @IsNotEmpty()
   @IsString()
   @Max(12)
-  @Min(1)
+  @Min(3)
   readonly password: string;
 }
 

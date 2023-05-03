@@ -1,18 +1,24 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TodoModule } from './todo/todo.module';
+import {AppController} from './app.controller';
+import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { User } from "./users/entity/user.entity";
 import { UsersModule } from './users/users.module';
+import { JwtModule } from '@nestjs/jwt';
+import { TodoModule } from './todo/todo.module';
 import { BookmarkModule } from './bookmark/bookmark.module';
 import { UsersController } from './users/users.controller';
-import { User } from "./users/entity/user.entity";
-import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config/dist';
 import { Todo } from './todo/entity/todo.entity';
 import { CatsController } from './cats/cats.controller';
+import * as bcrypt from 'bcrypt';
+
 
 console.log(__dirname + "\**\*entity{.ts,.js}")
+const entities = [User];
+
 @Module({
         imports: [
           JwtModule.register({
