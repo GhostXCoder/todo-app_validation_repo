@@ -4,7 +4,6 @@ import { Any, Repository } from 'typeorm';
 import { User } from './entity/user.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { clearScreenDown } from 'readline';
-import * as bcrypt from 'bcrypt';
 
 // This should be a real class/interface representing a user entity
 //export type User = any;
@@ -36,11 +35,10 @@ export class UsersService {
   
   async createUser(username: string, password: string): Promise<User | undefined> {
     try {
-      const salt = bcrypt.genSaltSync(10);
          //this.users.find(user => user.username === username);
     const user = {
       username,
-      password: bcrypt.hashSync(password, salt),
+      password
     };
     console.log(user)
     return await this.userRepository.save(user);

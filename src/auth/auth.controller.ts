@@ -12,7 +12,7 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() data: LoginDto) { 
-    const user = await this.authService.validateUser(data.username, data.password);
+    const user = await this.authService.validateUser(data);
     const accessToken = await this.authService.generateAccessToken(user);
     return { access_token: accessToken };
     //return this.authService.login(data);
